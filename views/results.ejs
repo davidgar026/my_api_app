@@ -1,0 +1,16 @@
+<%- include("header.ejs") %>
+    
+    <body>
+
+        <h1>From the information you provided:</h1>
+        <h2><%= locals.yourName %></h2>
+        <h2><%= locals.yourBirthYear %></h2>
+        <h2><%= locals.yourGenre %></h2>
+
+        <h1>Your selected tv show is:</h1>
+        <h2><%= tvshow %></h2>
+        <h2><%= year %></h2>
+        <h2><%= genre %></h2>
+    </body>
+
+<%- include("footer.ejs") %>

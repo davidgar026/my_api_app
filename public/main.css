@@ -1,0 +1,83 @@
+*, *:before, *:after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+#formData{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+
+#form{
+    height:850px;
+    width:680px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#nameInp{
+    width:250px;
+}
+
+#birthYearInp{
+    width:250px;
+}
+
+.form-group{
+    display:inline-block;
+    margin:15px;
+}
+
+input[value="Submit"]{
+    font-weight:bold;
+}
+
+#formDescription{
+    margin-top:50px;
+    margin-left:50px;
+    margin-right:50px;
+}
+
+#formData p{
+    margin-top:20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-checkbox{
+    position:relative;
+    left:40px;
+    display:grid;
+    grid-template-columns: repeat(3, 150px);
+    justify-content:center;
+}
+
+fieldset legend{
+    display:flex;
+    justify-content:center;
+    margin-top:10px;
+    margin-bottom:20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
