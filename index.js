@@ -20,6 +20,15 @@ app.get("/", (req, res) => {
 
 
 app.post("/", async(req, res) => {
+
+    //Functions
+    function capitalizeFirstLetter(text) {
+        return text.replace(/\b[a-zA-Z]/g, function(match) {
+          return match.toUpperCase();
+        });
+      }
+
+
     try{
         const result = await axios.get(API_url, req.body,{});
         const selectedOptions = req.body.options;
@@ -34,19 +43,28 @@ app.post("/", async(req, res) => {
           }
 
 
-          result.data.forEach(el => {
-            //console.log(el.name)
-        })
+        /*YOU LEFT OFF HERE 
+        
+        (11/9/24 11:44am)
+        
+        What tf was I doing: I was trying to use the user's genre inputs and filter tv shows that have either 1 user selected genre or multiple selected genres.
 
+        Problem: I keep getting this error: text.replace is not a function
+        
+        
+        */
+        //filters each object item's premier data
+            for(let i=0; i < result.data.length; i++){
+                if(result.data[i].premiered.replace(/['"]+|-.*/g, '') == req.body.birthYear){
+                    console.log(result.data[i])
+                }
+            }
 
-          
-        //console.log(selectedOptions.includes(result.data[0].genres))
-        //console.log("selectedOptions = ", typeof(selectedOptions));
-        //const hasValue = (obj, value) => Object.values(obj).includes(value);
-        //console.log("Obj = ", result.data[0])
-        //console.log("true or false: ", hasValue(result.data[0],'Ended'))
-        console.log("true or false: ", result.data[0].genres.includes('Science-Fiction'))
-
+        
+       console.log("TEST - true or false: ", result.data[0].genres.includes(capitalizeFirstLetter(selectedOptions)))
+       //console.log("TEST - true or false: ", result.data[0].genres.includes(selectedOptions.map(capitalizeFirstLetter)))
+       //console.log("selected genres w capitalizing = ", selectedOptions.map(capitalizeFirstLetter))
+       //console.log("API's genres = ", result.data[0].genres);
 
 
         res.render("results.ejs", {
