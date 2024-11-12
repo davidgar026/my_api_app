@@ -22,12 +22,16 @@ app.get("/", (req, res) => {
 app.post("/", async(req, res) => {
 
     //Functions
-    function capitalizeFirstLetter(text) {
-        return text.replace(/\b[a-zA-Z]/g, function(match) {
-          return match.toUpperCase();
+    function capitalizeFirstLetterInArray(arr) {
+        return arr.map(text => {
+          return text.replace(/\b[a-zA-Z]/g, function(match) {
+            return match.toUpperCase();
+          });
         });
       }
 
+
+      
 
     try{
         const result = await axios.get(API_url, req.body,{});
@@ -43,28 +47,36 @@ app.post("/", async(req, res) => {
           }
 
 
-        /*YOU LEFT OFF HERE 
-        
-        (11/9/24 11:44am)
-        
-        What tf was I doing: I was trying to use the user's genre inputs and filter tv shows that have either 1 user selected genre or multiple selected genres.
 
-        Problem: I keep getting this error: text.replace is not a function
+
+          /*YOU LEFT OFF HERE 
+        
+            (11/11/24 8:39pm)
+        
+            What tf was I doing: I was trying to use the user's genre inputs and filter tv shows that have either 1 user selected genre or multiple selected genres.
+
+            Solution: I had to use some() so that a array from the API can be matched with any of the array elements of the user's array input. It's shown below this comment.
         
         
         */
+          
+          const apiArr = result.data[0].genres;
+          const userArr = capitalizeFirstLetterInArray(selectedOptions);
+          const hasMatch = userArr.some(item => apiArr.includes(item));
+
+          console.log("True or False?: ", hasMatch); // true, because "banana" is in both arrays
+
+
+ 
+
+        
         //filters each object item's premier data
+
             for(let i=0; i < result.data.length; i++){
                 if(result.data[i].premiered.replace(/['"]+|-.*/g, '') == req.body.birthYear){
                     console.log(result.data[i])
                 }
             }
-
-        
-       console.log("TEST - true or false: ", result.data[0].genres.includes(capitalizeFirstLetter(selectedOptions)))
-       //console.log("TEST - true or false: ", result.data[0].genres.includes(selectedOptions.map(capitalizeFirstLetter)))
-       //console.log("selected genres w capitalizing = ", selectedOptions.map(capitalizeFirstLetter))
-       //console.log("API's genres = ", result.data[0].genres);
 
 
         res.render("results.ejs", {
