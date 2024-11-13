@@ -5,9 +5,12 @@ import axios from "axios";
 const app = express();
 const port = 3000;
 const API_url = "https://api.tvmaze.com/shows";
-const body = {
-
-};
+const filteredTvShowsByGenre = [];
+const filteredTvShowsByPremiered = [];
+let content = '';
+let selectedTvShow = '';
+let selectedYear = '';
+let keepTrackOfIndex = '';
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,52 +34,64 @@ app.post("/", async(req, res) => {
       }
 
 
-      
-
     try{
         const result = await axios.get(API_url, req.body,{});
         const selectedOptions = req.body.options;
-            //console.log(selectedOptions[1])
+
+
         if (Array.isArray(selectedOptions)) {
             console.log("Selected options:", selectedOptions);
+
+
+            //Used some() method to check each element in a array with another array with multiple elements.
+            for(let i=0;i<result.data.length; i++){
+                let apiArr = result.data[i].genres;
+                let userArr = capitalizeFirstLetterInArray(selectedOptions);
+                let hasMatch = userArr.some(item => apiArr.includes(item));
+                if(hasMatch){
+                    //selectedGenres.push(apiArr);
+                    filteredTvShowsByGenre.push(result.data[i])
+                }
+            }
+            
+            filteredTvShowsByGenre.forEach(el => {
+                //console.log( "Genre = ", el.genres)
+
+            //filters each object item's premier data
+                    if(el.premiered.replace(/['"]+|-.*/g, '') == req.body.birthYear){
+                        filteredTvShowsByPremiered.push(el)
+                    }
+            
+            })
+
+
+
+            /*YOU LEFT OFF HERE 
+        
+            (11/12/24 7:48pm)
+        
+            What tf was I doing: I was able to filter by premier year and genres that the user selects alongside the API's filtered year and genres. 
+
+            What's next: Link to results page.
+        
+        
+        */
+
+            filteredTvShowsByPremiered.forEach(el => {
+                console.log("TV show: ", el.name, ", Year Premiered: ", el.premiered, ", Genres: ", el.genres);
+            })
+
+
+
           } else if (selectedOptions) {
-            // If only one checkbox is selected, it will be a string
-            console.log("Selected option:", [selectedOptions]);
+            // If only one checkbox is selected, it will initially be a string but below, the REGEX will turn it into a obj.
+            const turnStringToObj = selectedOptions.replace(/\b(\w+)\b/g, '[$1]');
+            console.log("Selected option:", turnStringToObj)
+            
           } else {
             console.log("No options selected.");
           }
 
-
-
-
-          /*YOU LEFT OFF HERE 
-        
-            (11/11/24 8:39pm)
-        
-            What tf was I doing: I was trying to use the user's genre inputs and filter tv shows that have either 1 user selected genre or multiple selected genres.
-
-            Solution: I had to use some() so that a array from the API can be matched with any of the array elements of the user's array input. It's shown below this comment.
-        
-        
-        */
-          
-          const apiArr = result.data[0].genres;
-          const userArr = capitalizeFirstLetterInArray(selectedOptions);
-          const hasMatch = userArr.some(item => apiArr.includes(item));
-
-          console.log("True or False?: ", hasMatch); // true, because "banana" is in both arrays
-
-
- 
-
-        
-        //filters each object item's premier data
-
-            for(let i=0; i < result.data.length; i++){
-                if(result.data[i].premiered.replace(/['"]+|-.*/g, '') == req.body.birthYear){
-                    console.log(result.data[i])
-                }
-            }
 
 
         res.render("results.ejs", {
