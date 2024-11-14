@@ -33,6 +33,12 @@ app.post("/", async(req, res) => {
         });
       }
 
+      function getRandomIntInclusive(min, max) {
+        const minCeiled = Math.ceil(min);
+        const maxFloored = Math.floor(max);
+        return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
+      }
+
 
     try{
         const result = await axios.get(API_url, req.body,{});
@@ -68,18 +74,24 @@ app.post("/", async(req, res) => {
 
             /*YOU LEFT OFF HERE 
         
-            (11/12/24 7:48pm)
+            (11/13/24 10:57pm)
         
-            What tf was I doing: I was able to filter by premier year and genres that the user selects alongside the API's filtered year and genres. 
+            What tf was I doing: I was able to filter by premier year and genre. Then I got a random tv show from the final filtered result. 
 
-            What's next: Link to results page.
+            What's next: Link to results page to show the end user.
         
         
         */
 
             filteredTvShowsByPremiered.forEach(el => {
                 console.log("TV show: ", el.name, ", Year Premiered: ", el.premiered, ", Genres: ", el.genres);
+
             })
+
+
+            const finalFilteredTvShow = filteredTvShowsByPremiered[getRandomIntInclusive(0,filteredTvShowsByPremiered.length-1)];
+
+            /* you left off here => */console.log("End Result = ", finalFilteredTvShow);
 
 
 
