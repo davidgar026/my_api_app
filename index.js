@@ -7,10 +7,6 @@ const port = 3000;
 const API_url = "https://api.tvmaze.com/shows";
 const filteredTvShowsByGenre = [];
 const filteredTvShowsByPremiered = [];
-let content = '';
-let selectedTvShow = '';
-let selectedYear = '';
-let keepTrackOfIndex = '';
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,6 +40,10 @@ app.post("/", async(req, res) => {
         const result = await axios.get(API_url, req.body,{});
         const selectedOptions = req.body.options;
 
+       result.data.forEach(el => {
+        console.log(el.premiered)
+       })
+
 
         if (Array.isArray(selectedOptions)) {
             console.log("Selected options:", selectedOptions);
@@ -71,22 +71,35 @@ app.post("/", async(req, res) => {
             })
 
 
-
             /*YOU LEFT OFF HERE 
         
-            (11/13/24 10:57pm)
+            (11/14/24 9:05pm)
         
-            What tf was I doing: I was able to filter by premier year and genre. Then I got a random tv show from the final filtered result. 
+            What tf was I doing: I was trying to let the user input their birth year and if the api does not have a show with the year that the user puts, the code can round it to the nearest or closest available year from the api to the user's selected birth year. I'm trying to figure out how to do below.
 
-            What's next: Link to results page to show the end user.
+            What's next: solve a way to round the user's birth year to the nearest api's tv show's available premier year of a show.
         
         
         */
 
-            filteredTvShowsByPremiered.forEach(el => {
-                console.log("TV show: ", el.name, ", Year Premiered: ", el.premiered, ", Genres: ", el.genres);
+            /*
 
-            })
+            let userYear = 1995
+            let lowDif = userYear - lowApiYear;
+            let highDif = highApiYear - userYear;
+            if(lowDif < highDif){
+                let selectedPremeierYear = lowDif;
+            }else{
+                let selectedPremierYear = highDif;
+            }
+            
+            */
+
+
+
+
+
+            
 
 
             const finalFilteredTvShow = filteredTvShowsByPremiered[getRandomIntInclusive(0,filteredTvShowsByPremiered.length-1)];
