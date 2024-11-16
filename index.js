@@ -83,15 +83,32 @@ app.post("/", async(req, res) => {
         */
 
             /*
-
             let userYear = 1995
-            let lowDif = userYear - lowApiYear;
-            let highDif = highApiYear - userYear;
-            if(lowDif < highDif){
-                let selectedPremeierYear = lowDif;
-            }else{
-                let selectedPremierYear = highDif;
-            }
+            let trackOf = 0;
+            filteredTvShowsByPremiered.forEach(el => {
+                
+                if(userYear == el){
+                    let selectedPremeierYear = el;
+                    return;
+                }else if(userYear > el){
+                    let lowDif = userYear - el;
+                    trackOf = trackOf + 1;
+                }else if(useryear < el){
+                    let highDif = el - userYear;
+                    trackOf = trackOf + 1;
+                }
+            
+                if(trackOf <= 2){
+                    if(lowDif < highDif){
+                        selectedPremeierYear = lowDif;
+                    }else{
+                        selectedPremierYear = highDif;
+                    }
+                }
+                
+                
+            })
+            
             
             */
 
