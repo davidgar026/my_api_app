@@ -2,15 +2,24 @@
     
     <body>
 
-        <h1>From the information you provided:</h1>
-        <h2><%= locals.yourName %></h2>
-        <h2><%= locals.yourBirthYear %></h2>
-        <h2><%= locals.yourGenre %></h2>
+        <div class="border border-dark-subtle rounded-5">
+            <h1>From the information you provided:</h1>
+            <p><%= locals.yourName %></p>
+            <p><%= locals.yourBirthYear %></p>
+            <p><%= locals.yourGenre %></p>
 
-        <h1>Your selected tv show is:</h1>
-        <h2><%= tvshow %></h2>
-        <h2><%= year %></h2>
-        <h2><%= genre %></h2>
+            <h1>Your selected tv show is:</h1>
+            <p><%= tvshow %></p>
+            <p><%= year %></p>
+            <p><%= genre %></p>
+
+        </div>
+
+        
     </body>
 
 <%- include("footer.ejs") %>
+
+
+
+
