@@ -6,8 +6,10 @@ const app = express();
 const port = 3000;
 const API_url = "https://api.tvmaze.com/shows";
 const filteredTvShowsByGenre = [];
-const filteredTvShowsByPremiered = [];
-
+const filteredTvShowsByPremieredWithZeroTol = [];
+const filteredTvShowsByPremieredWithNonZeroTol = [];
+let finalFilteredTvShow = [];
+let finalFilteredTvShow2 = [];
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -36,13 +38,13 @@ app.post("/", async(req, res) => {
       }
 
 
+
+
     try{
         const result = await axios.get(API_url, req.body,{});
         const selectedOptions = req.body.options;
 
-       result.data.forEach(el => {
-        console.log(el.premiered)
-       })
+       
 
 
         if (Array.isArray(selectedOptions)) {
@@ -64,64 +66,39 @@ app.post("/", async(req, res) => {
                 //console.log( "Genre = ", el.genres)
 
             //filters each object item's premier data
-                    if(el.premiered.replace(/['"]+|-.*/g, '') == req.body.birthYear){
-                        filteredTvShowsByPremiered.push(el)
+                    if(Math.abs(req.body.birthYear - el.premiered.replace(/['"]+|-.*/g, '')) == 0){
+                        filteredTvShowsByPremieredWithZeroTol.push(el)
+                    }else if(Math.abs(req.body.birthYear - el.premiered.replace(/['"]+|-.*/g, '')) <= 10){
+                        filteredTvShowsByPremieredWithNonZeroTol.push(el)
                     }
-            
-            })
 
+            });
 
+           
             /*YOU LEFT OFF HERE 
         
-            (11/14/24 9:05pm)
+            (11/17/24 9:22pm)
         
-            What tf was I doing: I was trying to let the user input their birth year and if the api does not have a show with the year that the user puts, the code can round it to the nearest or closest available year from the api to the user's selected birth year. I'm trying to figure out how to do below.
+            What tf was I doing: I was trying I was trying to allow a user to input their birth year that does not exist in the api's array of tv shows. I was able to use the absolute and use tolerance to round the user's birth year input to the nearest premier date of a tv show. 
 
-            What's next: solve a way to round the user's birth year to the nearest api's tv show's available premier year of a show.
+            What's next: do more tests. update the results.ejs page once all is confirmed.
         
         
         */
+            console.log("true or false: ", filteredTvShowsByPremieredWithZeroTol != '');
+           
 
-            /*
-            let userYear = 1995
-            let trackOf = 0;
-            filteredTvShowsByPremiered.forEach(el => {
-                
-                if(userYear == el){
-                    let selectedPremeierYear = el;
-                    return;
-                }else if(userYear > el){
-                    let lowDif = userYear - el;
-                    trackOf = trackOf + 1;
-                }else if(useryear < el){
-                    let highDif = el - userYear;
-                    trackOf = trackOf + 1;
-                }
-            
-                if(trackOf <= 2){
-                    if(lowDif < highDif){
-                        selectedPremeierYear = lowDif;
-                    }else{
-                        selectedPremierYear = highDif;
-                    }
-                }
-                
-                
-            })
-            
-            
-            */
-
-
-
-
-
+            if(filteredTvShowsByPremieredWithZeroTol != ''){
+                finalFilteredTvShow = filteredTvShowsByPremieredWithZeroTol[getRandomIntInclusive(0,filteredTvShowsByPremieredWithZeroTol.length-1)];
+                console.log("End Result = ", finalFilteredTvShow);
+            }else{
+                finalFilteredTvShow2 = filteredTvShowsByPremieredWithNonZeroTol[getRandomIntInclusive(0,filteredTvShowsByPremieredWithNonZeroTol.length-1)];
+                console.log("End Result = ", finalFilteredTvShow2);
+            }
             
 
-
-            const finalFilteredTvShow = filteredTvShowsByPremiered[getRandomIntInclusive(0,filteredTvShowsByPremiered.length-1)];
-
-            /* you left off here => */console.log("End Result = ", finalFilteredTvShow);
+            /* you left off here => */
+            
 
 
 
