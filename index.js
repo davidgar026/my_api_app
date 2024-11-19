@@ -77,6 +77,10 @@ app.post("/", async(req, res) => {
 
             });
 
+            /*  this is to check all the tv shows with the user's multiple input selection ------> */filteredTvShowsByGenre.forEach(el => {
+                //console.log('id: ', el.id, ", year: ", el.premiered , ", genres: ", el.genres);
+            })
+
            
             
            
@@ -124,8 +128,8 @@ app.post("/", async(req, res) => {
         
         */
 
-            /*  You left off here ------> */filteredTvShowsByGenre.forEach(el => {
-                console.log('id: ', el.id, ", year: ", el.premiered , ", genres: ", el.genres);
+            /*  this is to check all the tv shows with the user's one input selection ------> */filteredTvShowsByGenre.forEach(el => {
+                //console.log('id: ', el.id, ", year: ", el.premiered , ", genres: ", el.genres);
             })
 
             if(filteredTvShowsByGenre != ''){
@@ -169,12 +173,6 @@ app.post("/", async(req, res) => {
         res.status(404).send(error.message);
     }
 });
-
-
-
-
-
-
 
 
 
