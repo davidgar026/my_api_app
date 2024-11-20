@@ -1,27 +1,13 @@
 <%- include("header.ejs") %>
-    
-    <body>
-        <div>
-            <div id="result-page" class="border border-dark-subtle rounded-5">
-            <h1>From the information you provided:</h1>
-            <p><%= locals.yourName %></p>
-            <p><%= locals.yourBirthYear %></p>
-            <p><%= locals.yourGenre %></p>
 
-            <h1>Your selected tv show is:</h1>
-            <p><%= tvshow %></p>
-            <p><%= year %></p>
-            <p><%= genre %></p>
-
-        </div>
-        </div>
-        
-
-        
-    </body>
+<body>
+  <div id="result-page" class="border border-dark-subtle rounded-5">
+    <h2><%= yourName %>,</h2>
+    <p>your selected tv show is:</p>
+    <p><span style="font-weight:bold ">TV Show:</span> <%= tvshow %></p>
+    <p><span style="font-weight:bold ">Premiered:</span> <%= year %></p>
+    <p><%= genre %></p>
+  </div>
+</body>
 
 <%- include("footer.ejs") %>
-
-
-
-

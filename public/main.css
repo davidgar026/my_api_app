@@ -22,20 +22,20 @@ body{
     align-items:center;
     height:85%;
     width:30%;
+    font-size:13px;
 }
 
-
-
-
-
-
 #result-page{
-    height:850px;
-    width:680px;
     display:flex;
     flex-direction:column;
     justify-content:center;
-    align-items:center; 
+    align-items:center;
+    padding:4%;
+}
+
+#result-page h2{
+    width:60%;
+    text-align:center;
 }
 
 #nameInp{
