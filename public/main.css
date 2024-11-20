@@ -39,11 +39,15 @@ body{
 }
 
 #nameInp{
-    width:100%;
+    width:180px;
+    height:35px;
+    font-size:15px
 }
 
 #birthYearInp{
-    width:100%;
+    width:180px;
+    height:35px;
+    font-size:15px
 }
 
 .form-group{
@@ -73,11 +77,16 @@ input::-webkit-inner-spin-button {
 }
 
 .form-checkbox{
+    /*
     position:relative;
     left:40px;
+    */
+    
     display:grid;
-    grid-template-columns: repeat(3, 150px);
-    justify-content:center;
+    grid-template-columns: repeat(3, 10rem);
+}
+
+.checkbox-item{
 }
 
 fieldset legend{
@@ -86,6 +95,107 @@ fieldset legend{
     margin-top:10px;
     margin-bottom:20px;
 }
+
+@media screen and (max-width: 768px) {
+    /* Styles for tablets and smaller devices */
+    body {
+        font-size: 1px;
+        padding: 0 20px;
+      }
+      #form {
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        width:500px;
+        font-size:80%;
+    }
+
+    .form-group{
+        width:100%;
+    }
+
+    .form-checkbox{
+        /*
+        position:relative;
+        left:40px;
+        */
+        
+        display:grid;
+        grid-template-columns: repeat(3, 7rem);
+        gap:9px;
+        justify-content:center;
+        width:100%;
+    }
+
+    .checkbox-item{
+    }
+
+    .form-group{
+        margin:1px;
+    }
+
+    #nameInp{
+        width:180px;
+        height:35px;
+        font-size:15px
+    }
+
+    #birthYearInp{
+        width:180px;
+        height:35px;
+        font-size:15px
+    }
+
+    #nameAndBirthInps{
+        height:10%;
+        display:flex;
+        justify-content:space-evenly;
+        align-items:center;
+    }
+
+    #submitBtn{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:15%;
+    }
+
+    
+
+
+
+  }
+
+
+
+
+
+
+  
+  @media screen and (max-width: 480px) {
+    /* Styles specifically for mobile phones */
+
+    html, body {
+        height: 100%; /* Make sure the html and body take the full height of the viewport */
+        margin: 0;    /* Remove any default margin */
+        padding: 0 10px;
+        font-size: 12px;
+        border:10px solid red;
+    }
+    
+
+    
+    #form {
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        height:85%;
+        width:30%;
+        font-size:13px;
+    }
+  }
 
 
 
